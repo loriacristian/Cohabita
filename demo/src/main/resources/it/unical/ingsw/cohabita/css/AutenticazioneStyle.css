@@ -1,0 +1,144 @@
+/* ============================================
+   COHABITA - Modern UI Stylesheet
+   Palette: Verde #4A7C59 ispirato al logo
+   ============================================ */
+
+/* ROOT E SFONDO */
+.root-pane {
+    -fx-background-color: #f8f9fa;
+}
+
+/* HERO SECTION - Lato sinistro con gradiente verde */
+.hero-section {
+    -fx-background-color: linear-gradient(to bottom right, #4A7C59 0%, #6B9B7A 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 0);
+}
+
+/* Cerchi decorativi di sfondo */
+.hero-circle-1 {
+    -fx-fill: rgba(255, 255, 255, 0.08);
+    -fx-translate-x: -80;
+    -fx-translate-y: -60;
+}
+
+.hero-circle-2 {
+    -fx-fill: rgba(255, 255, 255, 0.12);
+    -fx-translate-x: 100;
+    -fx-translate-y: 80;
+}
+
+/* Logo con effetto glow */
+.logo-glow {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 30, 0.4, 0, 0);
+}
+
+/* Testi hero section */
+.hero-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
+.hero-subtitle {
+    -fx-font-size: 18px;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-font-style: italic;
+}
+
+/* FORM CONTAINER */
+.form-container {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 40, 0, 0, 10);
+}
+
+/* Titolo e sottotitolo form */
+.form-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3436;
+}
+
+.form-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #636e72;
+}
+
+/* CAMPI DI INPUT */
+.field-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #4A7C59;
+}
+
+.modern-field {
+    -fx-background-color: #f1f3f5;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10;
+    -fx-padding: 14 18 14 18;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d3436;
+    -fx-prompt-text-fill: #b2bec3;
+}
+
+.modern-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #4A7C59;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(74, 124, 89, 0.3), 10, 0, 0, 0);
+}
+
+.modern-field:hover {
+    -fx-background-color: #e9ecef;
+}
+
+/* BOTTONE PRIMARIO */
+.primary-btn {
+    -fx-background-color: linear-gradient(to bottom, #4A7C59, #3d6449);
+    -fx-background-radius: 12;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 16 0 16 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(74, 124, 89, 0.4), 15, 0, 0, 5);
+}
+
+.primary-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #5a8c69, #4A7C59);
+    -fx-effect: dropshadow(gaussian, rgba(74, 124, 89, 0.6), 20, 0, 0, 8);
+    -fx-scale-y: 1.02;
+}
+
+.primary-btn:pressed {
+    -fx-background-color: linear-gradient(to bottom, #3d6449, #2f4e38);
+    -fx-translate-y: 2;
+}
+
+/* BOTTONE LINK */
+.link-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A7C59;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-underline: false;
+}
+
+.link-btn:hover {
+    -fx-text-fill: #3d6449;
+    -fx-underline: true;
+}
+
+/* TESTO SECONDARIO */
+.secondary-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #636e72;
+}
+
+/* INPUT GROUP */
+.input-group {
+    -fx-background-color: transparent;
+}
