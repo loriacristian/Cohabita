@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unical.ingsw.cohabita.ui.view.CreaCasaController"
+            prefWidth="1000" prefHeight="600"
+            styleClass="root-pane"
+            stylesheets="@../css/CasaStyle.css">
+
+    <!-- Lato sinistro con hero "manager" -->
+    <left>
+        <StackPane prefWidth="480" styleClass="hero-section">
+            <children>
+                <Circle radius="190" styleClass="hero-circle-1"/>
+                <Circle radius="120" styleClass="hero-circle-2"/>
+
+                <VBox alignment="CENTER" spacing="25">
+                    <children>
+                        <ImageView fitWidth="190" preserveRatio="true"
+                                   styleClass="logo-glow">
+                            <image>
+                                <Image url="@../assets/logoSenzaScritta.png"/>
+                            </image>
+                        </ImageView>
+
+                        <Label text="Diventa host della casa"
+                               styleClass="hero-title"/>
+                        <Label text="Crea l'abitazione e invita i tuoi coinquilini con un codice univoco"
+                               wrapText="true"
+                               maxWidth="320"
+                               styleClass="hero-subtitle"/>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </left>
+
+    <!-- Lato destro: card vetro per creazione casa -->
+    <center>
+        <VBox alignment="CENTER"
+              spacing="22"
+              maxWidth="430"
+              styleClass="form-container">
+            <children>
+
+                <VBox alignment="CENTER" spacing="6">
+                    <children>
+                        <Label text="Crea nuova abitazione"
+                               styleClass="form-title"/>
+                        <Label text="Imposta il nome della casa e ottieni il codice invito"
+                               styleClass="form-subtitle"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="10">
+                    <children>
+                        <Label text="NOME ABITAZIONE" styleClass="field-label"/>
+                        <TextField fx:id="nomeCasaField"
+                                   promptText="Es: Casa Via Roma 12"
+                                   styleClass="modern-field"/>
+                    </children>
+                </VBox>
+
+                <Button fx:id="creaButton"
+                        text="CREA CASA"
+                        maxWidth="Infinity"
+                        styleClass="primary-btn"/>
+
+                <VBox spacing="8">
+                    <children>
+                        <Label text="CODICE INVITO GENERATO"
+                               styleClass="field-label"/>
+                        <TextArea fx:id="codiceInvitoArea"
+                                  editable="false"
+                                  wrapText="true"
+                                  prefRowCount="2"
+                                  styleClass="modern-field"/>
+                        <Label text="Condividi questo codice con i tuoi coinquilini per permettere loro di unirsi alla casa."
+                               wrapText="true"
+                               maxWidth="360"
+                               styleClass="secondary-text"/>
+                    </children>
+                </VBox>
+
+                <HBox alignment="CENTER" spacing="6">
+                    <children>
+                        <Label text="Hai già un codice?"
+                               styleClass="secondary-text"/>
+                        <Button fx:id="tornaInvitoButton"
+                                text="Inseriscilo"
+                                styleClass="link-btn"/>
+                    </children>
+                </HBox>
+
+            </children>
+
+            <padding>
+                <Insets top="40" bottom="40" left="50" right="50"/>
+            </padding>
+        </VBox>
+    </center>
+
+</BorderPane>
