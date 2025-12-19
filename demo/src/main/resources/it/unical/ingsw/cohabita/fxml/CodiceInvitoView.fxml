@@ -66,13 +66,13 @@
                 <VBox spacing="10">
                     <children>
                         <Label text="CODICE" styleClass="field-label"/>
-                        <TextField fx:id="inviteCodeField"
+                        <TextField fx:id="codiceInvitoField"
                                    promptText="Es: 7F2K9ABQ"
                                    styleClass="modern-field"/>
                     </children>
                 </VBox>
 
-                <Button fx:id="joinButton"
+                <Button fx:id="uniscitiButton"
                         text="ENTRA NELLA CASA"
                         maxWidth="Infinity"
                         styleClass="primary-btn"/>
@@ -81,7 +81,7 @@
                     <children>
                         <Label text="Non hai ancora una casa?"
                                styleClass="secondary-text"/>
-                        <Button fx:id="createHouseButton"
+                        <Button fx:id="creaCasaButton"
                                 text="Crea nuova abitazione"
                                 styleClass="link-btn"/>
                     </children>
