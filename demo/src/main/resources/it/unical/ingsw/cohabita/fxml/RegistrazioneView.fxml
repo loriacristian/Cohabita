@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unical.ingsw.cohabita.ui.view.RegistrazioneController"
+            prefWidth="1000" prefHeight="600"
+            styleClass="root-pane"
+            stylesheets="@../css/AutenticazioneStyle.css">
+
+    <left>
+        <StackPane prefWidth="500" styleClass="hero-section">
+            <children>
+                <Circle radius="200" styleClass="hero-circle-1"/>
+                <Circle radius="120" styleClass="hero-circle-2"/>
+
+                <VBox alignment="CENTER" spacing="30">
+                    <children>
+                        <ImageView fitWidth="200" preserveRatio="true"
+                                   styleClass="logo-glow">
+                            <image>
+                                <Image url="@../assets/logoSenzaScritta.png"/>
+                            </image>
+                        </ImageView>
+
+                        <Label text="Inizia il tuo viaggio"
+                               styleClass="hero-title"/>
+                        <Label text="Unisciti alla community Cohabita"
+                               styleClass="hero-subtitle"/>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER"
+              spacing="20"
+              styleClass="form-container"
+              maxWidth="400">
+            <children>
+
+                <VBox alignment="CENTER" spacing="8">
+                    <children>
+                        <Label text="Crea Account" styleClass="form-title"/>
+                        <Label text="Compila i campi per iniziare" styleClass="form-subtitle"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="15" styleClass="input-group">
+                    <children>
+                        <VBox spacing="6">
+                            <children>
+                                <Label text="USERNAME" styleClass="field-label"/>
+                                <TextField fx:id="usernameField"
+                                           promptText="Scegli un username"
+                                           styleClass="modern-field"/>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <children>
+                                <Label text="PASSWORD" styleClass="field-label"/>
+                                <PasswordField fx:id="passwordField"
+                                               promptText="Crea una password sicura"
+                                               styleClass="modern-field"/>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <children>
+                                <Label text="CONFERMA PASSWORD" styleClass="field-label"/>
+                                <PasswordField fx:id="confirmPasswordField"
+                                               promptText="Ripeti la password"
+                                               styleClass="modern-field"/>
+                            </children>
+                        </VBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5"/>
+                    </VBox.margin>
+                </VBox>
+
+                <Button fx:id="registerButton"
+                        text="CREA ACCOUNT"
+                        maxWidth="Infinity"
+                        styleClass="primary-btn">
+                    <VBox.margin>
+                        <Insets top="10"/>
+                    </VBox.margin>
+                </Button>
+
+                <HBox alignment="CENTER" spacing="6">
+                    <children>
+                        <Label text="Hai già un account?" styleClass="secondary-text"/>
+                        <Button fx:id="backToLoginButton"
+                                text="Accedi"
+                                styleClass="link-btn"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5"/>
+                    </VBox.margin>
+                </HBox>
+
+            </children>
+            <padding>
+                <Insets top="40" bottom="40" left="50" right="50"/>
+            </padding>
+        </VBox>
+    </center>
+
+</BorderPane>
