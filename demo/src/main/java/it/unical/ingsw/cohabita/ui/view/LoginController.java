@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import it.unical.ingsw.cohabita.application.authentication.AutenteticazioneService;
-
 import it.unical.ingsw.cohabita.application.authentication.SessioneCorrente;
 
 public class LoginController {
@@ -22,7 +21,7 @@ public class LoginController {
     @FXML
     private Button registratiButton;
 
-    private final AutenteticazioneService autenticazioneService = new AutenteticazioneService();
+    private AutenteticazioneService autenticazioneService; // ← LAZY!
 
     @FXML
     private void initialize() {
@@ -34,21 +33,25 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        boolean loginOk= autenticazioneService.login(username, password);
+        // ← CREAZIONE SERVICE SOLO QUI!
+        if (autenticazioneService == null) {
+            autenticazioneService = new AutenteticazioneService();
+        }
 
-        if(!loginOk){
+        boolean loginOk = autenticazioneService.login(username, password);
+
+        if (!loginOk) {
             mostraAlert(Alert.AlertType.ERROR,
                     "Errore di login",
                     "Username o password errati.");
             return;
         }
 
-        Utente utenteCorrente= SessioneCorrente.getUtenteCorrente();
+        Utente utenteCorrente = SessioneCorrente.getUtenteCorrente();
 
-        if(utenteCorrente!=null && utenteCorrente.getIdCasa()!=null){
+        if (utenteCorrente != null && utenteCorrente.getIdCasa() != null) {
             SceneNavigator.navigateTo("HomeView.fxml");
-        }
-        else {
+        } else {
             SceneNavigator.navigateTo("CodiceInvitoView.fxml");
         }
     }
