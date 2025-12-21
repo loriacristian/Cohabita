@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unical.ingsw.cohabita.ui.view.HomeController"
+            prefWidth="1100" prefHeight="650"
+            stylesheets="@../css/HomeStyle.css">
+
+    <!-- SIDEBAR SINISTRA -->
+    <left>
+        <VBox prefWidth="260"
+              styleClass="sidebar"
+              spacing="10"
+              alignment="TOP_CENTER">
+            <padding>
+                <Insets top="30" bottom="30" left="20" right="20"/>
+            </padding>
+            <children>
+                <ImageView fitWidth="100" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/logoSenzaScritta.png"/>
+                    </image>
+                </ImageView>
+
+                <Label fx:id="nomeCasaLabel" text="Casa" styleClass="sidebar-title"/>
+                <Label fx:id="ruoloLabel" text="Ruolo" styleClass="sidebar-subtitle"/>
+
+                <VBox spacing="8" VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets top="20"/>
+                    </VBox.margin>
+                    <children>
+                        <Button fx:id="btnDashboard" text="Dashboard" maxWidth="Infinity" styleClass="sidebar-btn, sidebar-btn-active"/>
+                        <Button fx:id="btnCoinquilini" text="Coinquilini" maxWidth="Infinity" styleClass="sidebar-btn"/>
+                        <Button fx:id="btnPulizie" text="Turni pulizie" maxWidth="Infinity" styleClass="sidebar-btn"/>
+                        <Button fx:id="btnImpostazioni" text="Impostazioni" maxWidth="Infinity" styleClass="sidebar-btn"/>
+                    </children>
+                </VBox>
+
+                <VBox VBox.vgrow="ALWAYS"/>
+
+                <Button fx:id="btnLogout" text="Logout" maxWidth="Infinity" styleClass="sidebar-btn-logout"/>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- CONTENUTO PRINCIPALE -->
+    <center>
+        <VBox spacing="20" styleClass="content-area">
+            <padding>
+                <Insets top="30" bottom="30" left="30" right="30"/>
+            </padding>
+            <children>
+
+                <!-- RIGA SUPERIORE: CARD OGGI E PROSSIMO TURNO -->
+                <HBox spacing="20">
+                    <children>
+
+                        <!-- Card: Oggi tocca pulire a -->
+                        <StackPane HBox.hgrow="ALWAYS" styleClass="dashboard-card-small">
+                            <VBox alignment="CENTER" spacing="8">
+                                <padding>
+                                    <Insets top="20" bottom="20" left="20" right="20"/>
+                                </padding>
+                                <children>
+                                    <Label text="Oggi tocca pulire a" styleClass="card-title-small"/>
+                                    <Label fx:id="oggiToccaLabel"
+                                           text="Caricamento..."
+                                           styleClass="card-value"/>
+                                </children>
+                            </VBox>
+                        </StackPane>
+
+                        <!-- Card: Il tuo prossimo turno -->
+                        <StackPane HBox.hgrow="ALWAYS" styleClass="dashboard-card-small">
+                            <VBox alignment="CENTER" spacing="8">
+                                <padding>
+                                    <Insets top="20" bottom="20" left="20" right="20"/>
+                                </padding>
+                                <children>
+                                    <Label text="Il tuo prossimo turno" styleClass="card-title-small"/>
+                                    <Label fx:id="prossimoTurnoLabel"
+                                           text="Caricamento..."
+                                           styleClass="card-value"/>
+                                </children>
+                            </VBox>
+                        </StackPane>
+
+                    </children>
+                </HBox>
+
+                <!-- CARD GRANDE: CLASSIFICA PULIZIE -->
+                <StackPane styleClass="dashboard-card-large" VBox.vgrow="ALWAYS">
+                    <VBox spacing="12">
+                        <padding>
+                            <Insets top="20" bottom="20" left="20" right="20"/>
+                        </padding>
+                        <children>
+                            <Label text="Classifica" styleClass="card-title-big"/>
+                            <TableView fx:id="classificaTable" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="colNome" text="Coinquilino" prefWidth="340"/>
+                                    <TableColumn fx:id="colPunti" text="Media voti" prefWidth="140"/>
+                                    <TableColumn fx:id="colTurni" text="N° valutazioni" prefWidth="150"/>
+                                </columns>
+                            </TableView>
+                        </children>
+                    </VBox>
+                </StackPane>
+
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>
