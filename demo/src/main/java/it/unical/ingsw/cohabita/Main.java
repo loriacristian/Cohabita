@@ -13,7 +13,7 @@ public class Main extends Application {
         primaryStage.setTitle("Cohabita");
         primaryStage.setResizable(false);
 
-        SceneNavigator.navigateTo("LoginView.fxml");
+        SceneNavigator.navigateTo("RegistrazioneView.fxml");
 
         primaryStage.show();
     }

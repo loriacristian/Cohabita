@@ -49,7 +49,7 @@ public class LoginController {
 
         Utente utenteCorrente = SessioneCorrente.getUtenteCorrente();
 
-        if (utenteCorrente != null && utenteCorrente.getIdCasa() != null) {
+        if (utenteCorrente != null && utenteCorrente.getIdCasa() != null && utenteCorrente.getIdCasa()>0) {
             SceneNavigator.navigateTo("HomeView.fxml");
         } else {
             SceneNavigator.navigateTo("CodiceInvitoView.fxml");

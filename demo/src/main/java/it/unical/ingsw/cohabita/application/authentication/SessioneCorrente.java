@@ -1,5 +1,6 @@
 package it.unical.ingsw.cohabita.application.authentication;
 
+import it.unical.ingsw.cohabita.domain.Casa;
 import it.unical.ingsw.cohabita.domain.Utente;
 
 public class SessioneCorrente {

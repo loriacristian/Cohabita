@@ -75,13 +75,14 @@ public class AutenteticazioneService {
     public void lasciaCasa(Utente utente){
         if(utente!=null){
             utenteDao.aggiornaCasaERuolo(utente.getId(),null,null);
+
             utente.setIdCasa(null);
             utente.setId(null);
             SessioneCorrente.setUtenteCorrente(utente);
         }
     }
 
-    public boolean CambiaPassword(Utente utente, String vecchiaPassword,String nuovaPassword,String confermaPassword){
+    public boolean cambiaPassword(Utente utente, String vecchiaPassword,String nuovaPassword,String confermaPassword){
         if(utente==null){
             return false;
         }

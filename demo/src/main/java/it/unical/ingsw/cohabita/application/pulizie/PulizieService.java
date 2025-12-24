@@ -86,4 +86,8 @@ public class PulizieService {
     public List<VoceClassifica> getClassificaCasa(Integer idCasa) {
         return valutazioneDao.trovaClassifica(idCasa);
     }
+
+    public void cancellaCiclo(Integer idCasa) {
+        cicloDao.cancellaCiclo(idCasa);
+    }
 }
