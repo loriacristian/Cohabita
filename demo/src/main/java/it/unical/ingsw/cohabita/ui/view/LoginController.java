@@ -2,6 +2,7 @@ package it.unical.ingsw.cohabita.ui.view;
 
 import it.unical.ingsw.cohabita.domain.Utente;
 import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
+import it.unical.ingsw.cohabita.ui.utility.utilitaGenerale;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,7 +34,6 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // ← CREAZIONE SERVICE SOLO QUI!
         if (autenticazioneService == null) {
             autenticazioneService = new AutenteticazioneService();
         }
@@ -41,7 +41,7 @@ public class LoginController {
         boolean loginOk = autenticazioneService.login(username, password);
 
         if (!loginOk) {
-            mostraAlert(Alert.AlertType.ERROR,
+            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
                     "Errore di login",
                     "Username o password errati.");
             return;
@@ -60,11 +60,4 @@ public class LoginController {
         SceneNavigator.navigateTo("RegistrazioneView.fxml");
     }
 
-    private void mostraAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

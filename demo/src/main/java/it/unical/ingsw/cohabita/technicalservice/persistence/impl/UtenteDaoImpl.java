@@ -29,10 +29,10 @@ public class UtenteDaoImpl implements UtenteDao {
             "INSERT INTO credenziali (id, password_hash) VALUES (?, ?)";
 
     private static final String aggiornaCasaRuolo=
-            "INSERT INTO utenti SET id_casa=?, ruolo=?, WHERE id=?";
+            "UPDATE utenti SET id_casa=?, ruolo=? WHERE id=?";
 
     private static final String aggiornaPassword=
-            "INSERT INTO credenziali SET password_hash=?, WHERE id=?";
+            "UPDATE credenziali SET password_hash=? WHERE id=?";
 
     private static final String trovaCoinquilini="SELECT id, username, id_casa, ruolo " +
             "FROM utenti WHERE id_casa = ? ORDER BY username ASC";

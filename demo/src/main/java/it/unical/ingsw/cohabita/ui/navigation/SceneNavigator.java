@@ -14,10 +14,11 @@ public class SceneNavigator {
     public static void initialize(Stage stage) {
         primaryStage = stage;
     }
+    private static final String pathGenerale = "/it/unical/ingsw/cohabita/fxml/";
 
     public static void navigateTo(String fxmlPath) {
         try {
-            String fullPath = "/it/unical/ingsw/cohabita/fxml/" + fxmlPath;
+            String fullPath = pathGenerale + fxmlPath;
             FXMLLoader loader = new FXMLLoader(SceneNavigator.class.getResource(fullPath));
             Parent root = loader.load();
 
@@ -33,7 +34,7 @@ public class SceneNavigator {
 
     public static void navigateTo(String fxmlPath, double width, double height) {
         try {
-            String fullPath = "/it/unical/ingsw/cohabita/fxml/" + fxmlPath;
+            String fullPath = pathGenerale + fxmlPath;
             FXMLLoader loader = new FXMLLoader(SceneNavigator.class.getResource(fullPath));
             Parent root = loader.load();
 
@@ -49,7 +50,7 @@ public class SceneNavigator {
 
     public static <T> T navigateToAndGetController(String fxmlPath) {
         try {
-            String fullPath = "/it/unical/ingsw/cohabita/fxml/" + fxmlPath;
+            String fullPath = pathGenerale + fxmlPath;
             FXMLLoader loader = new FXMLLoader(SceneNavigator.class.getResource(fullPath));
             Parent root = loader.load();
 

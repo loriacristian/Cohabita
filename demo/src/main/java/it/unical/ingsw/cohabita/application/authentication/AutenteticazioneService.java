@@ -42,28 +42,11 @@ public class AutenteticazioneService {
 
     public boolean registrati(String username, String password, String confermaPassword) {
 
-        if (username == null || username.trim().isEmpty()) {
-            return false;
-        }
-
-        if (password == null || password.trim().isEmpty()) {
-            return false;
-        }
-
-        if (confermaPassword == null || confermaPassword.trim().isEmpty()) {
-            return false;
-        }
-
-        if(!password.equals(confermaPassword)) {
-            return false;
-        }
-
         if(utenteDao.trovaUtenteUsername(username) != null) {
             return false;
         }
 
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
-
         Utente utente= new Utente();
         utente.setUsername(username);
         utente.setPassword(passwordHash);

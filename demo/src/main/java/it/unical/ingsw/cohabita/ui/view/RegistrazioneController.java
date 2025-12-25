@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import it.unical.ingsw.cohabita.ui.utility.utilitaGenerale;
 
 public class RegistrazioneController {
 
@@ -30,28 +31,23 @@ public class RegistrazioneController {
     }
 
     public void onRegistrati() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String confermaPassword = confirmPasswordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        String confermaPassword = confirmPasswordField.getText().trim();
 
-        boolean passwordOK= autenticazioneService.passwordValida(password);
-        if (!passwordOK) {
-            mostraAlert(Alert.AlertType.ERROR,
-                    "Password non valida",
-                    "La password deve contenere almeno 8 caratteri di cui almeno: 1 carattere maiuscolo, 1 carattere minuscolo, 1 numero e 1 carattere speciale");
+        if(!inputValido(username, password, confermaPassword)){
+            return;
         }
-
         boolean RegistrazioneOK= autenticazioneService.registrati(username, password, confermaPassword);
         if (RegistrazioneOK) {
-            mostraAlert(Alert.AlertType.INFORMATION,
+            utilitaGenerale.mostraAlert(Alert.AlertType.INFORMATION,
                     "Registrazione completata",
                     "Account creato con successo!");
             tornaLogin();
         } else{
-            mostraAlert(Alert.AlertType.ERROR,
+            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
                     "Errore do registrazione",
                     "Username già esistente o passsword che non coincidono");
-            tornaLogin();
         }
     }
 
@@ -59,12 +55,31 @@ public class RegistrazioneController {
         SceneNavigator.navigateTo("LoginView.fxml");
     }
 
-    private void mostraAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public boolean inputValido(String username, String password, String confermaPassword ) {
+        if (username == null || password == null || confermaPassword == null){
+            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
+                    "Compila tutti i campi",
+                    "Riempire tutti i campi e riprova");
+            return false;
+        }
+
+        if(!password.equals(confermaPassword)) {
+            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
+                    "Le password non coincidono",
+                    "Controlla che le password siano uguali e riprova");
+            return false;
+        }
+
+        boolean passwordOK= autenticazioneService.passwordValida(password);
+        if (!passwordOK) {
+            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
+                    "Password non valida",
+                    "La password deve contenere almeno 8 caratteri di cui almeno: 1 carattere maiuscolo, 1 carattere minuscolo, 1 numero");
+            return false;
+        }
+        return true;
+
+
     }
 
 }
