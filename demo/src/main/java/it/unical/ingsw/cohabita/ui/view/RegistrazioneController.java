@@ -32,8 +32,8 @@ public class RegistrazioneController {
 
     public void onRegistrati() {
         String username = usernameField.getText().trim();
-        String password = passwordField.getText().trim();
-        String confermaPassword = confirmPasswordField.getText().trim();
+        String password = passwordField.getText();
+        String confermaPassword = confirmPasswordField.getText();
 
         if(!inputValido(username, password, confermaPassword)){
             return;
@@ -56,7 +56,7 @@ public class RegistrazioneController {
     }
 
     public boolean inputValido(String username, String password, String confermaPassword ) {
-        if (username == null || password == null || confermaPassword == null){
+        if (username == null || username.isEmpty() || password == null || password.isEmpty() || confermaPassword == null || confermaPassword.isEmpty()){
             utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
                     "Compila tutti i campi",
                     "Riempire tutti i campi e riprova");

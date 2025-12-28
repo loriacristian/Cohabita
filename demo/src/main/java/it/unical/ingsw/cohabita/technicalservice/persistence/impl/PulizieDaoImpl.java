@@ -48,11 +48,17 @@ public class PulizieDaoImpl implements PulizieDao {
                     "LIMIT 1";
 
     private static final String AGGIORNA =
-            "UPDATE turni_pulizie SET id_ciclo = ?, id_utente = ?, data_turno = ? " +
-                    "WHERE id_turno = ?";
+            "UPDATE turni_pulizie SET id_utente = ? WHERE id_turno = ?";
 
     private static final String CANCELLA =
             "DELETE FROM turni_pulizie WHERE id_turno = ?";
+
+    private static final String CANCELLA_TURNI_FUTURI =
+            "DELETE FROM turno_pulizie " +
+                    "WHERE id_ciclo = ? AND data_turno >= CURRENT_DATE";
+
+
+
 
     @Override
     public void salvaTurno(TurnoPulizie turno) {
@@ -76,7 +82,21 @@ public class PulizieDaoImpl implements PulizieDao {
     }
 
     @Override
-    public TurnoPulizie trovaTurnoID(Integer id){
+    public TurnoPulizie trovaTurnoID(Integer idTurno) {
+        try (PreparedStatement stmt = conn.prepareStatement(TROVA_ID)) {
+
+            stmt.setInt(1, idTurno);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapTurno(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nel recupero turno per ID", e);
+        }
+
         return null;
     }
     @Override
@@ -157,11 +177,8 @@ public class PulizieDaoImpl implements PulizieDao {
     @Override
     public void aggiornaTurno(TurnoPulizie turno) {
         try (PreparedStatement ps = conn.prepareStatement(AGGIORNA)) {
-            ps.setInt(1,turno.getIdCiclo());
-            ps.setInt(2,turno.getIdUtente());
-            ps.setDate(3,Date.valueOf(turno.getDataTurno()));
-            ps.setInt(4,turno.getIdTurno());
-
+            ps.setInt(1,turno.getIdUtente());
+            ps.setInt(2,turno.getIdTurno());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Errore nell'aggiornamento turno", e);
@@ -177,6 +194,17 @@ public class PulizieDaoImpl implements PulizieDao {
             throw new RuntimeException("Errore nella cencellazione del turno ",e);
         }
     }
+
+    @Override
+    public void cancellaTurniFuturi(Integer idCiclo){
+        try (PreparedStatement ps = conn.prepareStatement(CANCELLA_TURNI_FUTURI)) {
+            ps.setInt(1, idCiclo);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nella cancellazione turni futuri", e);
+        }
+    }
+
 
     private TurnoPulizie mapTurno(ResultSet rs) throws SQLException {
         TurnoPulizie turno = new TurnoPulizie();

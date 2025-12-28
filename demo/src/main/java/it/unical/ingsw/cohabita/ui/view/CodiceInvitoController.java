@@ -40,7 +40,7 @@ public class CodiceInvitoController {
             mostraAlert(Alert.AlertType.INFORMATION,
                     "Benvenuto",
                     "Sei entrato correttamente nella casa.");
-            SceneNavigator.navigateTo("CasaView.fxml");
+            SceneNavigator.navigateTo("HomeView.fxml");
         }else {
             mostraAlert(Alert.AlertType.ERROR,
                     "Codice non valido",

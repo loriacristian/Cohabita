@@ -13,10 +13,12 @@ import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,11 +32,10 @@ public class HomeController {
     @FXML private Button btnImpostazioni;
     @FXML private Button btnLogout;
 
-    // Card superiori
+
     @FXML private Label oggiToccaLabel;
     @FXML private Label prossimoTurnoLabel;
 
-    // Classifica
     @FXML private TableView<VoceClassificaFX> classificaTable;
     @FXML private TableColumn<VoceClassificaFX, String> colNome;
     @FXML private TableColumn<VoceClassificaFX, Number> colPunti;
@@ -77,6 +78,7 @@ public class HomeController {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
+                setAlignment(Pos.CENTER);
                 if (empty || item == null) {
                     setText(null);
                     setStyle("");
@@ -95,14 +97,17 @@ public class HomeController {
         colPunti.setCellFactory(col -> new TableCell<VoceClassificaFX, Number>() {
             @Override
             protected void updateItem(Number item, boolean empty) {
+                setAlignment(Pos.CENTER);
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(String.format("%.2f", item.doubleValue()));
+                    setText(String.format("%.2f / 5", item.doubleValue()));
                 }
             }
         });
+        colPunti.setStyle(" -fx-font-weight: bold; -fx-text-fill: green;");
+        colTurni.setStyle("-fx-alignment: CENTER; -fx-font-weight: bold;");
 
         classificaTable.setItems(FXCollections.observableArrayList());
     }
@@ -136,6 +141,7 @@ public class HomeController {
 
     private void caricaPulizie() {
         LocalDate oggi = LocalDate.now();
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         TurnoPulizie turnoOggi = pulizieService.getTurnoOggi(utenteCorrente.getIdCasa(), oggi);
         if (turnoOggi != null && turnoOggi.getIdUtente() != null) {
@@ -148,7 +154,7 @@ public class HomeController {
 
         TurnoPulizie prossimoTurno = pulizieService.getProssimoTurnoUtente(utenteCorrente.getId(), oggi);
         if (prossimoTurno != null) {
-            String data = prossimoTurno.getDataTurno().toString();
+            String data = prossimoTurno.getDataTurno().format(formatoData);
             prossimoTurnoLabel.setText(data);
         } else {
             prossimoTurnoLabel.setText("Nessun turno assegnato");

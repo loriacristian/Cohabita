@@ -8,6 +8,7 @@ public class CicloPulizie {
     private Integer idCasa;
     private Short cadenza;
     private Short turniCadauno;
+    private boolean attivo;
 
     public CicloPulizie(){}
 
@@ -17,6 +18,7 @@ public class CicloPulizie {
         this.idCasa = idCasa;
         this.cadenza = cadenza;
         this.turniCadauno = turniCadauno;
+        this.attivo = true;
     }
 
     public Integer getIdCiclo() {
@@ -59,5 +61,11 @@ public class CicloPulizie {
         this.turniCadauno = turniCadauno;
     }
 
+    public boolean getAttivo() {
+        return attivo;
+    }
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
+    }
 
 }

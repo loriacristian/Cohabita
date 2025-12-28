@@ -30,37 +30,44 @@ public class CicloPulizieDaoImpl implements CicloPulizieDao {
 
     private static final String TROVA_ULTIMO_CICLO =
             "SELECT id_ciclo, id_casa, data_inizio, cadenza, turni_cadauno " +
-                    "FROM cicli_pulizie WHERE id_casa = ? " +
+                    "FROM cicli_pulizie WHERE id_casa = ? AND attivo = true " +
                     "ORDER BY data_inizio DESC LIMIT 1";
+
 
     private static final String AGGIORNA =
             "UPDATE cicli_pulizie SET id_casa = ?, data_inizio = ?, cadenza = ?, turni_cadauno = ? " +
                     "WHERE id_ciclo = ?";
 
+    private static final String DISATTIVA_CICLO =
+            "UPDATE cicli_pulizie SET attivo = false " +
+                    "WHERE id_casa = ? AND attivo = true";
+
     private static final String CANCELLA =
-            "DELETE FROM cicli_pulizie WHERE id_ciclo = ?";
+            "DELETE FROM cicli_pulizie WHERE id_casa = ?";
 
     @Override
     public void salvaCiclo(CicloPulizie ciclo){
-        try(PreparedStatement ps = conn.prepareStatement(INSERISCI)){
+        try (PreparedStatement ps = conn.prepareStatement(
+                INSERISCI, Statement.RETURN_GENERATED_KEYS)) {
+
             ps.setInt(1, ciclo.getIdCasa());
             ps.setDate(2, Date.valueOf(ciclo.getDataCiclo()));
             ps.setShort(3, ciclo.getCadenza());
             ps.setShort(4, ciclo.getTurniCadauno());
 
-            int affectedRows = ps.executeUpdate();
+            ps.executeUpdate();
 
-            if (affectedRows > 0) {
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        ciclo.setIdCiclo(rs.getInt(1));
-                    }
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    ciclo.setIdCiclo(rs.getInt(1));
                 }
             }
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
             throw new RuntimeException("Errore nel salvataggio del ciclo pulizie", e);
         }
     }
+
 
     @Override
     public CicloPulizie trovaID(Integer idCiclo){
@@ -137,9 +144,9 @@ public class CicloPulizieDaoImpl implements CicloPulizieDao {
     }
 
     @Override
-    public void cancellaCiclo(Integer idCiclo){
-        try(PreparedStatement ps = conn.prepareStatement(CANCELLA)){
-            ps.setInt(1,idCiclo);
+    public void cancellaCiclo(Integer idCasa){
+        try(PreparedStatement ps = conn.prepareStatement(DISATTIVA_CICLO)){
+            ps.setInt(1,idCasa);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Errore nella cancellazione ciclo", e);

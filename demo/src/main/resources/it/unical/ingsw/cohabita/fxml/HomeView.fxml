@@ -11,7 +11,6 @@
             prefWidth="1100" prefHeight="650"
             stylesheets="@../css/HomeStyle.css">
 
-    <!-- SIDEBAR SINISTRA -->
     <left>
         <VBox prefWidth="260"
               styleClass="sidebar"
@@ -49,7 +48,6 @@
         </VBox>
     </left>
 
-    <!-- CONTENUTO PRINCIPALE -->
     <center>
         <VBox spacing="20" styleClass="content-area">
             <padding>
@@ -57,11 +55,9 @@
             </padding>
             <children>
 
-                <!-- RIGA SUPERIORE: CARD OGGI E PROSSIMO TURNO -->
                 <HBox spacing="20">
                     <children>
 
-                        <!-- Card: Oggi tocca pulire a -->
                         <StackPane HBox.hgrow="ALWAYS" styleClass="dashboard-card-small">
                             <VBox alignment="CENTER" spacing="8">
                                 <padding>
@@ -76,7 +72,6 @@
                             </VBox>
                         </StackPane>
 
-                        <!-- Card: Il tuo prossimo turno -->
                         <StackPane HBox.hgrow="ALWAYS" styleClass="dashboard-card-small">
                             <VBox alignment="CENTER" spacing="8">
                                 <padding>
@@ -94,7 +89,6 @@
                     </children>
                 </HBox>
 
-                <!-- CARD GRANDE: CLASSIFICA PULIZIE -->
                 <StackPane styleClass="dashboard-card-large" VBox.vgrow="ALWAYS">
                     <VBox spacing="12">
                         <padding>

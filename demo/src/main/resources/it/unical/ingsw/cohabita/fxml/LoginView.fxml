@@ -32,7 +32,7 @@
                         <ImageView fitWidth="220" preserveRatio="true"
                                    styleClass="logo-glow">
                             <image>
-                                <Image url="@../assets/logoConScritta.png"/>
+                                <Image url="@../assets/logoSenzaScritta.png"/>
                             </image>
                         </ImageView>
 

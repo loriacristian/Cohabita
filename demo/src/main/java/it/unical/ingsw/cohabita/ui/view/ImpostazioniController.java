@@ -5,6 +5,7 @@ import it.unical.ingsw.cohabita.application.authentication.SessioneCorrente;
 import it.unical.ingsw.cohabita.application.pulizie.PulizieService;
 import it.unical.ingsw.cohabita.application.utente.UtenteService;
 import it.unical.ingsw.cohabita.domain.Casa;
+import it.unical.ingsw.cohabita.domain.CicloPulizie;
 import it.unical.ingsw.cohabita.domain.Utente;
 import it.unical.ingsw.cohabita.technicalservice.persistence.dao.CasaDao;
 import it.unical.ingsw.cohabita.technicalservice.persistence.dao.PulizieDao;
@@ -49,6 +50,9 @@ public class ImpostazioniController {
     private final CasaDao casaDao = new CasaDaoImpl();
     private final PulizieService pulizieService= PulizieService.defaultInstance();
     private final AutenteticazioneService autenteticazioneService = new AutenteticazioneService();
+    private CicloPulizie cicloAttivo;
+
+
 
     @FXML
     private void initialize() {
@@ -131,6 +135,9 @@ public class ImpostazioniController {
     }
 
     private void onLasciaCasa() {
+        Utente utenteCorrente = SessioneCorrente.getUtenteCorrente();
+        cicloAttivo = pulizieService.getCiclo(utenteCorrente.getIdCasa());
+
         Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
         conferma.setTitle("Conferma uscita casa");
         conferma.setHeaderText("Vuoi davvero lasciare la casa?");
@@ -138,8 +145,7 @@ public class ImpostazioniController {
 
         Optional<ButtonType> risultato = conferma.showAndWait();
         if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
-            Utente utenteCorrente = SessioneCorrente.getUtenteCorrente();
-            pulizieService.cancellaCiclo(utenteCorrente.getIdCasa());
+            pulizieService.cancellaCiclo(utenteCorrente.getIdCasa(), cicloAttivo.getIdCiclo());
             autenteticazioneService.lasciaCasa(utenteCorrente);
 
             mostraInfo("Uscita", "Hai lasciato la casa. Verrai riportato alla scelta casa.");

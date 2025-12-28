@@ -16,5 +16,5 @@ public interface CicloPulizieDao {
 
     void aggiornaCiclo(CicloPulizie ciclo);
 
-    void cancellaCiclo(Integer idCiclo);
+    void cancellaCiclo(Integer idCasa);
 }

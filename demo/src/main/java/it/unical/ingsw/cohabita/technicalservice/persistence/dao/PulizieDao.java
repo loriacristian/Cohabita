@@ -23,4 +23,5 @@ public interface PulizieDao {
 
     void cancellaTurno(Integer idTurno);
 
+    void cancellaTurniFuturi(Integer idCiclo);
 }

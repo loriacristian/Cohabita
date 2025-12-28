@@ -38,6 +38,24 @@ public class PulizieService {
         );
     }
 
+    public CicloPulizie creaCiclo(CicloPulizie ciclo) {
+        cicloDao.salvaCiclo(ciclo);
+
+        LocalDate date = ciclo.getDataCiclo();
+        List<Utente> coinquilini= utenteDao.trovaCoinquilini(ciclo.getIdCasa());
+        for(int i=0;i< ciclo.getTurniCadauno();i++){
+            for(Utente utente : coinquilini){
+                TurnoPulizie turnoPulizie = new TurnoPulizie();
+                turnoPulizie.setIdCiclo(ciclo.getIdCiclo());
+                turnoPulizie.setIdUtente(utente.getId());
+                turnoPulizie.setDataTurno(date);
+                pulizieDao.salvaTurno(turnoPulizie);
+                date = date.plusDays(ciclo.getCadenza());
+            }
+        }
+        return ciclo;
+    }
+
     public Casa getCasa(Integer idCasa){
         return casaDao.trovaCasaId(idCasa);
     }
@@ -87,7 +105,9 @@ public class PulizieService {
         return valutazioneDao.trovaClassifica(idCasa);
     }
 
-    public void cancellaCiclo(Integer idCasa) {
+    public void cancellaCiclo(Integer idCasa,Integer idCiclo) {
         cicloDao.cancellaCiclo(idCasa);
+
+        pulizieDao.cancellaTurno(idCiclo);
     }
 }

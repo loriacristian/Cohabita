@@ -71,45 +71,45 @@ public class UtenteDaoImpl implements UtenteDao {
 
     @Override
     public void salvaUtente(Utente utente) {
-            try {
-                conn.setAutoCommit(false);
-                int idUtente;
-                try (PreparedStatement psUser = conn.prepareStatement(inserisciUtente, Statement.RETURN_GENERATED_KEYS)) {
-                    psUser.setString(1, utente.getUsername());
-                    psUser.executeUpdate();
+        try {
+            conn.setAutoCommit(false);
+            int idUtente;
+            try (PreparedStatement psUser = conn.prepareStatement(inserisciUtente, Statement.RETURN_GENERATED_KEYS)) {
+                psUser.setString(1, utente.getUsername());
+                psUser.executeUpdate();
 
-                    try (ResultSet rs = psUser.getGeneratedKeys()) {
-                        if (rs.next()) {
-                            idUtente = rs.getInt(1);
-                        } else {
-                            throw new RuntimeException("Impossibile ottenere l'ID utente generato");
-                        }
+                try (ResultSet rs = psUser.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        idUtente = rs.getInt(1);
+                    } else {
+                        throw new RuntimeException("Impossibile ottenere l'ID utente generato");
                     }
                 }
-                try (PreparedStatement psCred =
-                             conn.prepareStatement(inserisciCredenziali)) {
-
-                    psCred.setInt(1, idUtente);
-                    psCred.setString(2, utente.getPassword());
-                    psCred.executeUpdate();
-                }
-                conn.commit();
-                utente.setId(idUtente);
-
-            } catch (SQLException e) {
-                try {
-                    conn.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-                throw new RuntimeException("Errore nel salvataggio utente", e);
-            } finally {
-                try {
-                    conn.setAutoCommit(true);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
+            try (PreparedStatement psCred =
+                         conn.prepareStatement(inserisciCredenziali)) {
+
+                psCred.setInt(1, idUtente);
+                psCred.setString(2, utente.getPassword());
+                psCred.executeUpdate();
+            }
+            conn.commit();
+            utente.setId(idUtente);
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            throw new RuntimeException("Errore nel salvataggio utente", e);
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -122,7 +122,7 @@ public class UtenteDaoImpl implements UtenteDao {
             if (rs.next()) {
                 return creaIstanzaUtente(rs);
             }
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return null;
@@ -152,7 +152,7 @@ public class UtenteDaoImpl implements UtenteDao {
             throw new RuntimeException(e);
 
         }
-        }
+    }
 
 
     @Override
@@ -164,7 +164,11 @@ public class UtenteDaoImpl implements UtenteDao {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Utente coinquilino = creaIstanzaUtente(rs);
+                Utente coinquilino = new Utente();
+                coinquilino.setId(rs.getInt("id"));
+                coinquilino.setUsername(rs.getString("username"));
+                coinquilino.setIdCasa((Integer) rs.getObject("id_casa"));
+                coinquilino.setRuolo((Integer) rs.getObject("ruolo"));
                 coinquilini.add(coinquilino);
             }
             return coinquilini;
