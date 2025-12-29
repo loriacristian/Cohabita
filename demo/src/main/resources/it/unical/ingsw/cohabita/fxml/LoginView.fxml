@@ -23,7 +23,6 @@
     <left>
         <StackPane prefWidth="500" styleClass="hero-section">
             <children>
-                <!-- Decorazione di sfondo -->
                 <Circle radius="200" styleClass="hero-circle-1"/>
                 <Circle radius="120" styleClass="hero-circle-2"/>
 

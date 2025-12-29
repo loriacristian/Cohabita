@@ -55,10 +55,9 @@
             </padding>
             <children>
 
-                <HBox alignment="CENTER_LEFT" spacing="15">
+                <HBox alignment="CENTER_LEFT" spacing="20">
                     <children>
-                        <Label text="Turni pulizie" styleClass="page-title" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-
+                        <Label text="Turni pulizie" styleClass="page-title" HBox.hgrow="ALWAYS"/>
                         <Button fx:id="btnCreaCiclo"
                                 text="+ Crea nuovo ciclo"
                                 styleClass="primary-btn"
@@ -66,8 +65,8 @@
                                 managed="false"/>
 
                         <Button fx:id="btnEliminaCiclo"
-                                text="Elimina ciclo"
-                                styleClass="danger-link-btn"
+                                text="- Elimina ciclo"
+                                styleClass="secondary-btn"
                                 visible="false"
                                 managed="false"/>
                     </children>
@@ -107,22 +106,14 @@
                                 </children>
                             </HBox>
 
-                            <TableView fx:id="turniTable" VBox.vgrow="ALWAYS" styleClass="no-scroll-table">
+                            <TableView fx:id="turniTable" VBox.vgrow="ALWAYS">
                                 <columns>
-                                    <TableColumn fx:id="colData" text="Data"/>
-                                    <TableColumn fx:id="colAssegnato" text="Assegnato a"/>
-                                    <TableColumn fx:id="colStato" text="Stato"/>
-                                    <TableColumn fx:id="colValutazione" text="Valutazione"/>
-                                    <TableColumn fx:id="colAzioni" text="Azioni"/>
+                                    <TableColumn fx:id="colData" text="Data" prefWidth="120"/>
+                                    <TableColumn fx:id="colAssegnato" text="Assegnato a" prefWidth="200"/>
+                                    <TableColumn fx:id="colStato" text="Stato" prefWidth="140"/>
+                                    <TableColumn fx:id="colValutazione" text="Valutazione" prefWidth="140"/>
+                                    <TableColumn fx:id="colAzioni" text="Azioni" prefWidth="180"/>
                                 </columns>
-
-                                <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                                </columnResizePolicy>
-
-                                <placeholder>
-                                    <Label text=""/>
-                                </placeholder>
                             </TableView>
 
                         </children>

@@ -2,7 +2,6 @@
     -fx-background-color: linear-gradient(to bottom, #f5f7fb, #edf1f7);
     -fx-font-family: "Segoe UI", system-ui, sans-serif;
 }
-
 .sidebar {
     -fx-background-color: linear-gradient(to bottom, #4A7C59, #6B9B7A);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 22, 0, 4, 0);
@@ -103,6 +102,7 @@
     -fx-cursor: hand;
 }
 
+
 .primary-btn:hover {
     -fx-background-color: linear-gradient(to right, #5c8d68, #7cac89);
 }
@@ -118,21 +118,6 @@
     -fx-effect: dropshadow(gaussian, rgba(192,57,43,0.4), 18, 0, 0, 6);
 }
 
-.danger-link-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #ff4d4d;
-    -fx-font-size: 12px;
-    -fx-font-weight: 700;
-    -fx-padding: 6 12;
-    -fx-border-color: #ff4d4d;
-    -fx-border-radius: 6;
-    -fx-border-width: 1;
-    -fx-cursor: hand;
-}
-
-.danger-link-btn:hover {
-    -fx-background-color: rgba(255, 77, 77, 0.08);
-}
 
 .field-label {
     -fx-font-size: 12px;
@@ -151,85 +136,94 @@
 .combo-box:hover {
     -fx-background-color: #e9ecef;
 }
-
-.no-scroll-table {
+.turni-table {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 
-.no-scroll-table:focused {
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-}
-
-.no-scroll-table .scroll-bar:horizontal,
-.no-scroll-table .scroll-bar:vertical {
-    -fx-pref-width: 0;
-    -fx-pref-height: 0;
-    -fx-opacity: 0;
-}
-
-.no-scroll-table .column-header-background {
+.turni-table .column-header-background {
     -fx-background-color: #f8f9fa;
     -fx-background-radius: 12 12 0 0;
 }
 
-.no-scroll-table .column-header-background .filler {
+.turni-table .column-header-background .filler {
     -fx-background-color: #f8f9fa;
 }
 
-.no-scroll-table .column-header {
+.turni-table .column-header {
     -fx-background-color: #f8f9fa;
     -fx-border-color: transparent transparent #e9ecef transparent;
     -fx-border-width: 0 0 2 0;
     -fx-padding: 12 10 12 10;
 }
 
-.no-scroll-table .column-header .label {
+.turni-table .column-header .label {
     -fx-text-fill: #4A7C59;
     -fx-font-size: 13px;
     -fx-font-weight: 700;
 }
 
-.no-scroll-table .corner {
+.turni-table .corner {
     -fx-background-color: #f8f9fa;
 }
 
-.no-scroll-table .table-row-cell {
+.turni-table .table-row-cell {
     -fx-background-color: white;
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-border-color: transparent;
 }
 
-.no-scroll-table .table-row-cell:odd {
+.turni-table .table-row-cell:odd {
     -fx-background-color: #fafbfc;
 }
 
-.no-scroll-table .table-row-cell:hover {
+.turni-table .table-row-cell:hover {
     -fx-background-color: #f0f7f4;
 }
 
-.no-scroll-table .table-row-cell:filled:selected,
-.no-scroll-table .table-row-cell:filled:selected:hover {
-    -fx-background-color: transparent;
-    -fx-text-fill: #2d3436;
-    -fx-table-cell-border-color: transparent;
+.turni-table .table-row-cell:selected {
+    -fx-background-color: #e8f4ee;
+    -fx-background-insets: 0;
 }
 
-.no-scroll-table .table-cell {
+.turni-table .table-cell {
     -fx-text-fill: #2d3436;
     -fx-font-size: 14px;
     -fx-padding: 10 14 10 14;
     -fx-border-color: transparent;
 }
 
-.no-scroll-table .placeholder .label {
+.turni-table .placeholder .label {
     -fx-text-fill: #6c757d;
     -fx-font-size: 14px;
     -fx-padding: 40;
+}
+
+.turni-table .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.turni-table .scroll-bar:vertical .track {
+    -fx-background-color: #f1f3f5;
+    -fx-background-radius: 8;
+}
+
+.turni-table .scroll-bar:vertical .thumb {
+    -fx-background-color: #b2bec3;
+    -fx-background-radius: 8;
+}
+
+.turni-table .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #4A7C59;
+}
+
+.turni-table .scroll-bar .increment-button,
+.turni-table .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
 }
 
 .table-action-primary {
@@ -305,6 +299,7 @@
     -fx-border-color: #4A7C59;
     -fx-border-width: 1.8;
 }
+
 
 .ciclo-dialog > *.button-bar {
     -fx-background-color: white;

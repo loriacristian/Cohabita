@@ -18,7 +18,6 @@
             styleClass="dashboard-root"
             stylesheets="@../css/ImpostazioniStyle.css">
 
-    <!-- SIDEBAR SINISTRA (stesso menu home) -->
     <left>
         <VBox styleClass="sidebar"
               prefWidth="260"
@@ -81,7 +80,6 @@
         </VBox>
     </left>
 
-    <!-- AREA CENTRALE: impostazioni -->
     <center>
         <VBox spacing="20" styleClass="content-area">
 
@@ -94,7 +92,6 @@
                 <Label text="Impostazioni"
                        styleClass="page-title"/>
 
-                <!-- CARD: Modifica Password -->
                 <StackPane styleClass="dashboard-card">
                     <VBox spacing="14" alignment="TOP_LEFT">
                         <children>

@@ -19,7 +19,6 @@
             styleClass="root-pane"
             stylesheets="@../css/CasaStyle.css">
 
-    <!-- Lato sinistro con hero e logo -->
     <left>
         <StackPane prefWidth="480" styleClass="hero-section">
             <children>
