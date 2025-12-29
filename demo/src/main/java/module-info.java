@@ -8,6 +8,7 @@ module it.unical.ingsw.cohabita {
     opens it.unical.ingsw.cohabita.ui.view to javafx.fxml;
 
     opens it.unical.ingsw.cohabita.ui.model to javafx.base;
+    opens it.unical.ingsw.cohabita.domain to javafx.base;
 
     exports it.unical.ingsw.cohabita;
     exports it.unical.ingsw.cohabita.ui.view;

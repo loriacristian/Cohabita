@@ -1,0 +1,15 @@
+@import "HomeStyle.css";
+
+.copy-field {
+    -fx-background-color: #f1f3f5;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 16px;
+    -fx-text-fill: #4A7C59;
+}
+
+.table-view {
+    -fx-background-radius: 12;
+}

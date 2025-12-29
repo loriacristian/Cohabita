@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unical.ingsw.cohabita.ui.view.CoinquiliniController"
+            stylesheets="@../css/CoinquiliniStyle.css" prefWidth="1100" prefHeight="650">
+
+    <left>
+        <VBox prefWidth="260" styleClass="sidebar" spacing="10" alignment="TOP_CENTER">
+            <padding><Insets top="30" bottom="30" left="20" right="20"/></padding>
+            <children>
+                <ImageView fitWidth="100" preserveRatio="true">
+                    <image><Image url="@../assets/logoSenzaScritta.png"/></image>
+                </ImageView>
+                <Label fx:id="nomeCasaLabel" text="Casa" styleClass="sidebar-title"/>
+                <Label fx:id="ruoloLabel" text="Ruolo" styleClass="sidebar-subtitle"/>
+                <VBox spacing="8" VBox.vgrow="NEVER">
+                    <VBox.margin><Insets top="20"/></VBox.margin>
+                    <children>
+                        <Button fx:id="btnDashboard" text="Dashboard" maxWidth="Infinity" styleClass="sidebar-btn"/>
+                        <Button fx:id="btnCoinquilini" text="Coinquilini" maxWidth="Infinity" styleClass="sidebar-btn, sidebar-btn-active"/>
+                        <Button fx:id="btnPulizie" text="Turni pulizie" maxWidth="Infinity" styleClass="sidebar-btn"/>
+                        <Button fx:id="btnImpostazioni" text="Impostazioni" maxWidth="Infinity" styleClass="sidebar-btn"/>
+                    </children>
+                </VBox>
+                <VBox VBox.vgrow="ALWAYS"/>
+                <Button fx:id="btnLogout" text="Logout" maxWidth="Infinity" styleClass="sidebar-btn-logout"/>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" styleClass="content-area">
+            <padding><Insets top="30" bottom="30" left="30" right="30"/></padding>
+            <children>
+                <Label text="Coinquilini" styleClass="page-title"/>
+
+                <VBox spacing="10" styleClass="dashboard-card-small">
+                    <children>
+                        <Label text="CODICE INVITO" styleClass="card-title-small"/>
+                        <TextField fx:id="codiceInvitoField" editable="false" styleClass="copy-field" maxWidth="300"/>
+                    </children>
+                </VBox>
+
+                <VBox styleClass="dashboard-card-large" VBox.vgrow="ALWAYS" spacing="15">
+                    <children>
+                        <Label text="Membri attuali" styleClass="card-title-small"/>
+                        <TableView fx:id="tabellaCoinquilini" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colNome" text="Username" prefWidth="700"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
