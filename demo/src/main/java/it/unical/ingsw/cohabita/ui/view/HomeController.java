@@ -23,15 +23,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HomeController {
-    @FXML
-    private Label nomeCasaLabel;
-    @FXML private Label ruoloLabel;
-    @FXML private Button btnDashboard;
-    @FXML private Button btnCoinquilini;
-    @FXML private Button btnPulizie;
-    @FXML private Button btnImpostazioni;
-    @FXML private Button btnLogout;
-
 
     @FXML private Label oggiToccaLabel;
     @FXML private Label prossimoTurnoLabel;
@@ -50,24 +41,13 @@ public class HomeController {
     private void initialize() {
         utenteCorrente= SessioneCorrente.getUtenteCorrente();
 
-        inizializzaSidebar();
         inizializzaTabellaClassifica();
 
-        caricaDatiCasa();
         caricaPulizie();
         caricaClassifica();
     }
 
-    private void inizializzaSidebar() {
-        btnDashboard.setOnAction(e -> SceneNavigator.navigateTo("HomeView.fxml"));
-        btnCoinquilini.setOnAction(e -> SceneNavigator.navigateTo("CoinquiliniView.fxml"));
-        btnPulizie.setOnAction(e -> SceneNavigator.navigateTo("PulizieView.fxml"));
-        btnImpostazioni.setOnAction(e -> SceneNavigator.navigateTo("ImpostazioniView.fxml"));
-        btnLogout.setOnAction(e -> {
-            SessioneCorrente.rimuoviUtenteCorrente();
-            SceneNavigator.navigateTo("LoginView.fxml");
-        });
-    }
+
 
     private void inizializzaTabellaClassifica() {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nomeCompleto"));
@@ -112,32 +92,7 @@ public class HomeController {
         classificaTable.setItems(FXCollections.observableArrayList());
     }
 
-    private void caricaDatiCasa() {
 
-        if (utenteCorrente == null || utenteCorrente.getIdCasa() == null) {
-            mostraErrore("Nessuna casa associata.");
-            SceneNavigator.navigateTo("InviteCodeView.fxml");
-            return;
-        }
-
-        Casa casa = pulizieService.getCasa(utenteCorrente.getIdCasa());
-        if (casa != null) {
-            nomeCasaLabel.setText(casa.getNomeCasa());
-        } else {
-            nomeCasaLabel.setText("Casa sconosciuta");
-        }
-
-        if (utenteService.isAdmin(utenteCorrente)) {
-            ruoloLabel.setText("Manager");
-            btnCoinquilini.setVisible(true);
-            btnCoinquilini.setManaged(true);
-        } else {
-            ruoloLabel.setText("Coinquilino");
-            btnCoinquilini.setVisible(false);
-            btnCoinquilini.setManaged(false);
-        }
-
-    }
 
     private void caricaPulizie() {
         LocalDate oggi = LocalDate.now();
@@ -179,12 +134,5 @@ public class HomeController {
 
     }
 
-    private void mostraErrore(String messaggio) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
-        alert.setHeaderText(null);
-        alert.setContentText(messaggio);
-        alert.showAndWait();
-    }
 
 }

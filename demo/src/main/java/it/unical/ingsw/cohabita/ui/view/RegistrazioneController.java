@@ -3,7 +3,6 @@ package it.unical.ingsw.cohabita.ui.view;
 import it.unical.ingsw.cohabita.application.authentication.AutenteticazioneService;
 import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -40,13 +39,11 @@ public class RegistrazioneController {
         }
         boolean RegistrazioneOK= autenticazioneService.registrati(username, password, confermaPassword);
         if (RegistrazioneOK) {
-            utilitaGenerale.mostraAlert(Alert.AlertType.INFORMATION,
-                    "Registrazione completata",
+            utilitaGenerale.mostraInfo("Registrazione completata",
                     "Account creato con successo!");
             tornaLogin();
         } else{
-            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
-                    "Errore do registrazione",
+            utilitaGenerale.mostraInfo("Errore do registrazione",
                     "Username già esistente o passsword che non coincidono");
         }
     }
@@ -57,24 +54,18 @@ public class RegistrazioneController {
 
     public boolean inputValido(String username, String password, String confermaPassword ) {
         if (username == null || username.isEmpty() || password == null || password.isEmpty() || confermaPassword == null || confermaPassword.isEmpty()){
-            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
-                    "Compila tutti i campi",
-                    "Riempire tutti i campi e riprova");
+            utilitaGenerale.mostraErrore("Riempire tutti i campi e riprova");
             return false;
         }
 
         if(!password.equals(confermaPassword)) {
-            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
-                    "Le password non coincidono",
-                    "Controlla che le password siano uguali e riprova");
+            utilitaGenerale.mostraErrore("Controlla che le password siano uguali e riprova");
             return false;
         }
 
         boolean passwordOK= autenticazioneService.passwordValida(password);
         if (!passwordOK) {
-            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
-                    "Password non valida",
-                    "La password deve contenere almeno 8 caratteri di cui almeno: 1 carattere maiuscolo, 1 carattere minuscolo, 1 numero");
+            utilitaGenerale.mostraErrore("La password deve contenere almeno 8 caratteri di cui almeno: 1 carattere maiuscolo e 1 numero");
             return false;
         }
         return true;

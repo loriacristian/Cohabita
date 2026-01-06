@@ -1,5 +1,6 @@
 package it.unical.ingsw.cohabita.technicalservice.persistence.dao;
 
+import it.unical.ingsw.cohabita.domain.TurnoConDettagli;
 import it.unical.ingsw.cohabita.domain.TurnoPulizie;
 
 import java.time.LocalDate;
@@ -24,4 +25,6 @@ public interface PulizieDao {
     void cancellaTurno(Integer idTurno);
 
     void cancellaTurniFuturi(Integer idCiclo);
+
+    List<TurnoConDettagli> trovaTurniConDettagli(Integer idCiclo);
 }

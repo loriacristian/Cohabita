@@ -84,7 +84,6 @@ public class PulizieService {
         return pulizieDao.trovaProssimoTurnoUtente(idUtente, da);
     }
 
-    // Utenti
     public Utente getUtente(Integer idUtente) {
         return utenteDao.trovaUtenteId(idUtente);
     }
@@ -110,4 +109,9 @@ public class PulizieService {
 
         pulizieDao.cancellaTurno(idCiclo);
     }
+
+    public List<TurnoConDettagli> getTurniDettagliati(Integer idCiclo) {
+        return pulizieDao.trovaTurniConDettagli(idCiclo);
+    }
+
 }

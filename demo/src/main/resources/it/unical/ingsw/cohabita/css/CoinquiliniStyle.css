@@ -1,15 +1,79 @@
 @import "HomeStyle.css";
 
 .copy-field {
-    -fx-background-color: #f1f3f5;
+    -fx-background-color: #f8f9fa;
     -fx-border-color: #dee2e6;
     -fx-border-radius: 8;
-    -fx-padding: 8;
-    -fx-font-family: "Monospaced";
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-font-family: "JetBrains Mono", "Cascadia Code", "Monospaced";
     -fx-font-size: 16px;
     -fx-text-fill: #4A7C59;
+    -fx-cursor: hand;
+    -fx-border-width: 1;
+}
+
+.copy-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4A7C59;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 124, 89, 0.2), 10, 0, 0, 0);
 }
 
 .table-view {
+    -fx-background-color: transparent;
     -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1;
+    -fx-padding: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f1f3f5;
+    -fx-background-radius: 12 12 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+    -fx-border-color: transparent #dee2e6 transparent transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #495057;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f1f3f5 transparent;
+    -fx-cell-size: 45px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #f1f8f4;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e9ecef;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-cell {
+    -fx-alignment: CENTER;
+    -fx-padding: 0 10 0 10;
+}
+
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+.top-rank {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3436;
 }

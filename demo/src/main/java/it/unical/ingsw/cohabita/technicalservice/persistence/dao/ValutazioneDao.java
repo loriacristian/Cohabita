@@ -14,5 +14,6 @@ public interface ValutazioneDao {
     List<VoceClassifica> trovaClassifica(Integer idCasa);
 
     Valutazione trovaId(Integer idValutazione);
+
 }
 

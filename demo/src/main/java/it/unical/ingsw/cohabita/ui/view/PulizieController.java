@@ -4,8 +4,8 @@ import it.unical.ingsw.cohabita.application.authentication.SessioneCorrente;
 import it.unical.ingsw.cohabita.application.pulizie.PulizieService;
 import it.unical.ingsw.cohabita.application.utente.UtenteService;
 import it.unical.ingsw.cohabita.domain.*;
-import it.unical.ingsw.cohabita.ui.model.TurnoConDettagli;
 import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
+import it.unical.ingsw.cohabita.ui.utility.utilitaGenerale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,22 +17,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import java.time.LocalDate;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PulizieController {
-
-    @FXML private Label nomeCasaLabel;
-    @FXML private Label ruoloLabel;
-    @FXML private Button btnDashboard;
-    @FXML private Button btnCoinquilini;
-    @FXML private Button btnPulizie;
-    @FXML private Button btnImpostazioni;
-    @FXML private Button btnLogout;
-
     @FXML private Button btnCreaCiclo;
     @FXML private Button btnEliminaCiclo;
     @FXML private VBox noCicloBox;
@@ -59,8 +49,7 @@ public class PulizieController {
         utenteCorrente = SessioneCorrente.getUtenteCorrente();
         isAdmin = utenteService.isAdmin(utenteCorrente);
 
-        inizializzaSidebar();
-        caricaDatiCasa();
+
         inizializzaFiltri();
         inizializzaTabella();
         verificaCicloECaricaTurni();
@@ -207,91 +196,21 @@ public class PulizieController {
 
 
     private void caricaTurni() {
-        List<TurnoPulizie> turni = pulizieService.getTurniCiclo(cicloAttivo.getIdCiclo());
+        List<TurnoConDettagli> dettagli = pulizieService.getTurniDettagliati(cicloAttivo.getIdCiclo());
+
         LocalDate oggi = LocalDate.now();
-
-        List<TurnoConDettagli> dettagli = turni.stream().map(t -> {
-            Utente utente = pulizieService.getUtente(t.getIdUtente());
-            String nomeUtente = utente != null ? utente.getUsername() : "Sconosciuto";
-
-            String stato;
-            if (t.getDataTurno().isBefore(oggi)) {
-                stato = "Passato";
-            } else if (t.getDataTurno().isEqual(oggi)) {
-                stato = "Oggi";
+        for (TurnoConDettagli t : dettagli) {
+            if (t.getData().isBefore(oggi)) {
+                t.setStato("Passato");
+            } else if (t.getData().isEqual(oggi)) {
+                t.setStato("Oggi");
             } else {
-                stato = "Futuro";
+                t.setStato("Futuro");
             }
-
-            List<Valutazione> vals = pulizieService.getValutazioniTurno(t.getIdTurno());
-            boolean valutato = !vals.isEmpty();
-            Double mediaVoto = valutato
-                    ? vals.stream().mapToDouble(v -> v.getVoto()).average().orElse(0)
-                    : -1;
-
-            return new TurnoConDettagli(
-                    t.getIdTurno(),
-                    t.getDataTurno(),
-                    t.getIdUtente(),
-                    nomeUtente,
-                    stato,
-                    mediaVoto,
-                    valutato
-            );
-        }).collect(Collectors.toList());
+        }
 
         turniMaster.setAll(dettagli);
         applicaFiltro();
-    }
-
-
-
-
-    private void inizializzaSidebar() {
-        btnDashboard.setOnAction(e -> SceneNavigator.navigateTo("HomeView.fxml"));
-        btnCoinquilini.setOnAction(e -> mostraInfo("Coinquilini", "Sezione in sviluppo"));
-        btnPulizie.setOnAction(e -> SceneNavigator.navigateTo("PulizieView.fxml"));
-        btnImpostazioni.setOnAction(e -> SceneNavigator.navigateTo("ImpostazioniView.fxml"));
-
-        btnLogout.setOnAction(e -> {
-            SessioneCorrente.rimuoviUtenteCorrente();
-            SceneNavigator.navigateTo("LoginView.fxml");
-        });
-    }
-
-    private void caricaDatiCasa() {
-        if (utenteCorrente == null || utenteCorrente.getIdCasa() == null) {
-            mostraErrore("Nessuna casa associata.");
-            SceneNavigator.navigateTo("InviteCodeView.fxml");
-            return;
-        }
-
-        Casa casa = pulizieService.getCasa(utenteCorrente.getIdCasa());
-        if (casa != null) {
-            nomeCasaLabel.setText(casa.getNomeCasa());
-        } else {
-            nomeCasaLabel.setText("Casa sconosciuta");
-        }
-
-        if (isAdmin) {
-            ruoloLabel.setText("Manager");
-            btnCoinquilini.setVisible(true);
-            btnCoinquilini.setManaged(true);
-            btnCreaCiclo.setVisible(true);
-            btnCreaCiclo.setManaged(true);
-            btnCreaCiclo.setOnAction(e -> mostraDialogCreaCiclo());
-            btnEliminaCiclo.setVisible(true);
-            btnEliminaCiclo.setManaged(true);
-            btnEliminaCiclo.setOnAction(e -> eliminaCiclo());
-
-
-        } else {
-            ruoloLabel.setText("Coinquilino");
-            btnCoinquilini.setVisible(false);
-            btnCoinquilini.setManaged(false);
-            btnCreaCiclo.setVisible(false);
-            btnCreaCiclo.setManaged(false);
-        }
     }
 
     private void mostraDialogValuta(TurnoConDettagli turno) {
@@ -306,7 +225,7 @@ public class PulizieController {
             try {
                 short valutazione = Short.parseShort(voto);
                 if (valutazione < 1 || valutazione > 5) {
-                    mostraErrore("Il voto deve essere tra 1 e 5.");
+                    utilitaGenerale.mostraErrore("Il voto deve essere tra 1 e 5.");
                     return;
                 }
 
@@ -317,11 +236,11 @@ public class PulizieController {
                 val.setVoto(valutazione);
 
                 pulizieService.salvaValutazione(val);
-                mostraInfo("Valutazione salvata", "Grazie per il tuo feedback.");
+                utilitaGenerale.mostraInfo("Valutazione salvata", "Grazie per il tuo feedback.");
                 caricaTurni();
 
             } catch (NumberFormatException e) {
-                mostraErrore("Inserisci un numero valido.");
+                utilitaGenerale.mostraErrore("Inserisci un numero valido.");
             }
         });
     }
@@ -348,7 +267,7 @@ public class PulizieController {
                 t.setIdUtente(nuovoUtente.get().getId());
                 pulizieService.aggiornaTurno(t);
 
-                mostraInfo("Turno aggiornato", "Il turno è stato riassegnato.");
+                utilitaGenerale.mostraInfo("Turno aggiornato", "Il turno è stato riassegnato.");
                 caricaTurni();
             }
         });
@@ -403,7 +322,7 @@ public class PulizieController {
                     ciclo.setTurniCadauno(Short.parseShort(turniCadaunoField.getText()));
                     return ciclo;
                 } catch (Exception e) {
-                    mostraErrore("Dati non validi.");
+                    utilitaGenerale.mostraErrore("Dati non validi.");
                     return null;
                 }
             }
@@ -413,7 +332,7 @@ public class PulizieController {
         Optional<CicloPulizie> result = dialog.showAndWait();
         result.ifPresent(ciclo -> {
             pulizieService.creaCiclo(ciclo);
-            mostraInfo("Ciclo creato", "Ora puoi generare e visualizzare i turni.");
+            utilitaGenerale.mostraInfo("Ciclo creato", "Ora puoi generare e visualizzare i turni.");
             verificaCicloECaricaTurni();
         });
     }
@@ -428,25 +347,11 @@ public class PulizieController {
 
         if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
             pulizieService.cancellaCiclo(utenteCorrente.getIdCasa(),cicloAttivo.getIdCiclo());
-            mostraInfo("Ciclo eliminato", "Hai eliminato il ciclo presente, adesso potrai crearne uno nuovo");
+            utilitaGenerale.mostraInfo("Ciclo eliminato", "Hai eliminato il ciclo presente, adesso potrai crearne uno nuovo");
             SceneNavigator.navigateTo("PulizieView.fxml");
         }
     }
 
 
-    private void mostraErrore(String messaggio) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
-        alert.setHeaderText(null);
-        alert.setContentText(messaggio);
-        alert.showAndWait();
-    }
 
-    private void mostraInfo(String titolo, String messaggio) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titolo);
-        alert.setHeaderText(null);
-        alert.setContentText(messaggio);
-        alert.showAndWait();
-    }
 }

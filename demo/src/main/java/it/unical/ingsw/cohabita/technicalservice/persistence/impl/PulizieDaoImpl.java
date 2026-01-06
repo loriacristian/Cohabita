@@ -1,5 +1,6 @@
 package it.unical.ingsw.cohabita.technicalservice.persistence.impl;
 
+import it.unical.ingsw.cohabita.domain.TurnoConDettagli;
 import it.unical.ingsw.cohabita.domain.TurnoPulizie;
 import it.unical.ingsw.cohabita.technicalservice.persistence.dao.PulizieDao;
 import it.unical.ingsw.cohabita.technicalservice.persistence.db.DBConnectionManager;
@@ -56,6 +57,18 @@ public class PulizieDaoImpl implements PulizieDao {
     private static final String CANCELLA_TURNI_FUTURI =
             "DELETE FROM turno_pulizie " +
                     "WHERE id_ciclo = ? AND data_turno >= CURRENT_DATE";
+
+
+    private static final String TROVA_TURNI_DETTAGLIATI =
+                    "SELECT t.id_turno, t.data_turno, t.id_utente, u.username, " +
+                    "AVG(v.valutazione) as media_voto, " +
+                    "COUNT(v.id_valutazione) > 0 as is_valutato " +
+                    "FROM turni_pulizie t " +
+                    "JOIN utenti u ON t.id_utente = u.id " +
+                    "LEFT JOIN valutazioni v ON t.id_turno = v.id_turno " +
+                    "WHERE t.id_ciclo = ? " +
+                    "GROUP BY t.id_turno, u.username " +
+                    "ORDER BY t.data_turno ASC";
 
 
 
@@ -213,5 +226,32 @@ public class PulizieDaoImpl implements PulizieDao {
         turno.setIdUtente(rs.getInt("id_utente"));
         turno.setDataTurno(rs.getDate("data_turno").toLocalDate());
         return turno;
+    }
+
+    @Override
+    public List<TurnoConDettagli> trovaTurniConDettagli(Integer idCiclo) {
+        List<TurnoConDettagli> lista = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(TROVA_TURNI_DETTAGLIATI)) {
+            ps.setInt(1, idCiclo);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    double media = rs.getDouble("media_voto");
+                    if (rs.wasNull()) media = -1.0;
+
+                    lista.add(new TurnoConDettagli(
+                            rs.getInt("id_turno"),
+                            rs.getDate("data_turno").toLocalDate(),
+                            rs.getInt("id_utente"),
+                            rs.getString("username"),
+                            "",
+                            media,
+                            rs.getBoolean("is_valutato")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nel caricamento ottimizzato turni", e);
+        }
+        return lista;
     }
 }

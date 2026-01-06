@@ -12,40 +12,7 @@
             stylesheets="@../css/HomeStyle.css">
 
     <left>
-        <VBox prefWidth="260"
-              styleClass="sidebar"
-              spacing="10"
-              alignment="TOP_CENTER">
-            <padding>
-                <Insets top="30" bottom="30" left="20" right="20"/>
-            </padding>
-            <children>
-                <ImageView fitWidth="100" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/logoSenzaScritta.png"/>
-                    </image>
-                </ImageView>
-
-                <Label fx:id="nomeCasaLabel" text="Casa" styleClass="sidebar-title"/>
-                <Label fx:id="ruoloLabel" text="Ruolo" styleClass="sidebar-subtitle"/>
-
-                <VBox spacing="8" VBox.vgrow="NEVER">
-                    <VBox.margin>
-                        <Insets top="20"/>
-                    </VBox.margin>
-                    <children>
-                        <Button fx:id="btnDashboard" text="Dashboard" maxWidth="Infinity" styleClass="sidebar-btn, sidebar-btn-active"/>
-                        <Button fx:id="btnCoinquilini" text="Coinquilini" maxWidth="Infinity" styleClass="sidebar-btn"/>
-                        <Button fx:id="btnPulizie" text="Turni pulizie" maxWidth="Infinity" styleClass="sidebar-btn"/>
-                        <Button fx:id="btnImpostazioni" text="Impostazioni" maxWidth="Infinity" styleClass="sidebar-btn"/>
-                    </children>
-                </VBox>
-
-                <VBox VBox.vgrow="ALWAYS"/>
-
-                <Button fx:id="btnLogout" text="Logout" maxWidth="Infinity" styleClass="sidebar-btn-logout"/>
-            </children>
-        </VBox>
+        <fx:include source="SidebarView.fxml" />
     </left>
 
     <center>

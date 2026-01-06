@@ -19,65 +19,7 @@
             stylesheets="@../css/ImpostazioniStyle.css">
 
     <left>
-        <VBox styleClass="sidebar"
-              prefWidth="260"
-              spacing="8"
-              alignment="TOP_CENTER">
-
-            <padding>
-                <Insets top="30" bottom="30" left="20" right="20"/>
-            </padding>
-
-            <children>
-
-                <VBox alignment="CENTER" spacing="10">
-                    <children>
-                        <ImageView fitWidth="100" preserveRatio="true">
-                            <image>
-                                <Image url="@../assets/logoSenzaScritta.png"/>
-                            </image>
-                        </ImageView>
-                        <Label fx:id="nomeCasaLabel"
-                               text="Casa"
-                               styleClass="sidebar-title"/>
-                        <Label fx:id="ruoloLabel"
-                               text="Ruolo"
-                               styleClass="sidebar-subtitle"/>
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="20"/>
-                    </VBox.margin>
-                </VBox>
-
-                <Button fx:id="btnDashboard"
-                        text="Dashboard"
-                        maxWidth="Infinity"
-                        styleClass="sidebar-btn"/>
-
-                <Button fx:id="btnCoinquilini"
-                        text="Coinquilini"
-                        maxWidth="Infinity"
-                        styleClass="sidebar-btn"/>
-
-                <Button fx:id="btnPulizie"
-                        text="Turni Pulizie"
-                        maxWidth="Infinity"
-                        styleClass="sidebar-btn"/>
-
-                <Button fx:id="btnImpostazioni"
-                        text="Impostazioni"
-                        maxWidth="Infinity"
-                        styleClass="sidebar-btn, sidebar-btn-active"/>
-
-                <VBox VBox.vgrow="ALWAYS"/>
-
-                <Button fx:id="btnLogout"
-                        text="Logout"
-                        maxWidth="Infinity"
-                        styleClass="sidebar-btn-logout"/>
-
-            </children>
-        </VBox>
+        <fx:include source="SidebarView.fxml" />
     </left>
 
     <center>

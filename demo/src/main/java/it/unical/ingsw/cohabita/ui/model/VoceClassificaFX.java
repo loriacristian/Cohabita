@@ -30,7 +30,6 @@ public class VoceClassificaFX {
         return idUtente;
     }
 
-    // Nome completo
     public String getNomeCompleto() {
         return nomeCompleto.get();
     }

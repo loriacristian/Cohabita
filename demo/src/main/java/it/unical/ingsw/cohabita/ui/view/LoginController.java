@@ -4,7 +4,6 @@ import it.unical.ingsw.cohabita.domain.Utente;
 import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
 import it.unical.ingsw.cohabita.ui.utility.utilitaGenerale;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,7 +21,7 @@ public class LoginController {
     @FXML
     private Button registratiButton;
 
-    private AutenteticazioneService autenticazioneService; // ← LAZY!
+    private AutenteticazioneService autenticazioneService;
 
     @FXML
     private void initialize() {
@@ -41,9 +40,7 @@ public class LoginController {
         boolean loginOk = autenticazioneService.login(username, password);
 
         if (!loginOk) {
-            utilitaGenerale.mostraAlert(Alert.AlertType.ERROR,
-                    "Errore di login",
-                    "Username o password errati.");
+            utilitaGenerale.mostraErrore("Username o password errati.");
             return;
         }
 
