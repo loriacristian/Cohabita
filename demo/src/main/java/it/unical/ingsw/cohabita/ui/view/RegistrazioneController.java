@@ -1,12 +1,16 @@
 package it.unical.ingsw.cohabita.ui.view;
 
 import it.unical.ingsw.cohabita.application.authentication.AutenteticazioneService;
+import it.unical.ingsw.cohabita.application.command.LoginCommand;
+import it.unical.ingsw.cohabita.application.command.RegistrazioneCommand;
 import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import it.unical.ingsw.cohabita.ui.utility.utilitaGenerale;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 
 public class RegistrazioneController {
 
@@ -23,10 +27,27 @@ public class RegistrazioneController {
 
     private final AutenteticazioneService autenticazioneService = new AutenteticazioneService();
 
+    private RegistrazioneCommand registrazioneCommand;
+
+    @FXML
+    BorderPane root;
+
     @FXML
     private void initialize() {
-        registerButton.setOnAction(e -> onRegistrati());
         backToLoginButton.setOnAction(e -> tornaLogin());
+
+        registrazioneCommand = new RegistrazioneCommand(this);
+
+        registerButton.setOnAction(e -> registrazioneCommand.execute());
+
+        root.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                registrazioneCommand.execute();
+            }
+        });
+
+        root.setFocusTraversable(true);
+        root.requestFocus();
     }
 
     public void onRegistrati() {

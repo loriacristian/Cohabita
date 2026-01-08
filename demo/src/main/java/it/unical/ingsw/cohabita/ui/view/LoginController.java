@@ -9,6 +9,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import it.unical.ingsw.cohabita.application.authentication.AutenteticazioneService;
 import it.unical.ingsw.cohabita.application.authentication.SessioneCorrente;
+import it.unical.ingsw.cohabita.application.command.Command;
+import it.unical.ingsw.cohabita.application.command.LoginCommand;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 
 public class LoginController {
 
@@ -23,13 +27,33 @@ public class LoginController {
 
     private AutenteticazioneService autenticazioneService;
 
+    private Command loginCommand;
+
+    @FXML
+    private BorderPane root;
+
+
     @FXML
     private void initialize() {
-        accediButton.setOnAction(e -> onLogin());
-        registratiButton.setOnAction(event -> vaiRegistrazione());
+
+        loginCommand = new LoginCommand(this);
+
+        accediButton.setOnAction(e -> loginCommand.execute());
+
+        root.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                loginCommand.execute();
+            }
+        });
+
+        registratiButton.setOnAction(e -> vaiRegistrazione());
+
+        root.setFocusTraversable(true);
+        root.requestFocus();
     }
 
-    private void onLogin() {
+
+    public void onLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -56,5 +80,4 @@ public class LoginController {
     private void vaiRegistrazione() {
         SceneNavigator.navigateTo("RegistrazioneView.fxml");
     }
-
 }

@@ -49,6 +49,9 @@ public class PulizieController {
         utenteCorrente = SessioneCorrente.getUtenteCorrente();
         isAdmin = utenteService.isAdmin(utenteCorrente);
 
+        btnCreaCiclo.setOnAction(e -> mostraDialogCreaCiclo());
+        btnEliminaCiclo.setOnAction(e-> eliminaCiclo());
+
 
         inizializzaFiltri();
         inizializzaTabella();

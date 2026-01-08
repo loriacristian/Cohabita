@@ -18,7 +18,8 @@
             fx:controller="it.unical.ingsw.cohabita.ui.view.RegistrazioneController"
             prefWidth="1000" prefHeight="600"
             styleClass="root-pane"
-            stylesheets="@../css/AutenticazioneStyle.css">
+            stylesheets="@../css/AutenticazioneStyle.css"
+fx:id="root">
 
     <left>
         <StackPane prefWidth="500" styleClass="hero-section">

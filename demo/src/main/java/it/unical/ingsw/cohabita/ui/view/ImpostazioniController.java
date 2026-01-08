@@ -3,12 +3,14 @@ package it.unical.ingsw.cohabita.ui.view;
 import it.unical.ingsw.cohabita.application.authentication.AutenteticazioneService;
 import it.unical.ingsw.cohabita.application.authentication.SessioneCorrente;
 import it.unical.ingsw.cohabita.application.pulizie.PulizieService;
+import it.unical.ingsw.cohabita.application.utente.UtenteService;
 import it.unical.ingsw.cohabita.domain.CicloPulizie;
 import it.unical.ingsw.cohabita.domain.Utente;
 import it.unical.ingsw.cohabita.ui.navigation.SceneNavigator;
 import it.unical.ingsw.cohabita.ui.utility.utilitaGenerale;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 
 
 public class ImpostazioniController {
@@ -28,12 +30,30 @@ public class ImpostazioniController {
     private final AutenteticazioneService autenteticazioneService = new AutenteticazioneService();
     private CicloPulizie cicloAttivo;
 
+    boolean isAdmin;
+
+    private final UtenteService utenteService = UtenteService.defaultInstance();
+
+    private Utente utenteCorrente;
+
 
 
     @FXML
     private void initialize() {
         btnCambiaPassword.setOnAction(e -> onCambiaPassword());
-        btnLasciaCasa.setOnAction(e -> onLasciaCasa());
+
+        utenteCorrente = SessioneCorrente.getUtenteCorrente();
+        isAdmin = utenteService.isAdmin(utenteCorrente);
+
+        if(isAdmin){
+            btnLasciaCasa.setVisible(false);
+            btnLasciaCasa.setManaged(false);
+        }
+        else{
+            btnLasciaCasa.setVisible(true);
+            btnLasciaCasa.setManaged(true);
+            btnLasciaCasa.setOnAction(e -> onLasciaCasa());
+        }
     }
 
     private void onCambiaPassword() {
